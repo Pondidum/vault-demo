@@ -12,6 +12,7 @@ namespace DemoService
 			var config = new Configuration();
 			new ConfigurationBuilder()
 				.AddEnvironmentVariables()
+				.AddJsonFile("appsettings.json")
 				.Build()
 				.Bind(config);
 
