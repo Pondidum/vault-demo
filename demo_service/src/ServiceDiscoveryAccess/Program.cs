@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 
-namespace DemoService
+namespace ServiceDiscoveryAccess
 {
 	class Program
 	{

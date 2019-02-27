@@ -1,6 +1,6 @@
 using System;
 
-namespace DemoService
+namespace ServiceDiscoveryAccess
 {
 	public class UserInfo
 	{

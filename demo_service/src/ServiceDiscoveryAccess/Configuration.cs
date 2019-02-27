@@ -7,7 +7,7 @@ using VaultSharp;
 using VaultSharp.V1;
 using VaultSharp.V1.AuthMethods.AppRole;
 
-namespace DemoService
+namespace ServiceDiscoveryAccess
 {
 	public class Configuration : IDisposable
 	{
