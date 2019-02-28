@@ -17,18 +17,7 @@ namespace ServiceDiscoveryAccess
 		public Configuration()
 		{
 			_consul = new ConsulClient();
-			_vault = new Lazy<Task<IVaultClientV1>>(async () =>
-			{
-				var uri = await GetService("vault");
-				var auth = new AppRoleAuthMethodInfo(VaultRoleID, VaultSecretID);
-
-				var settings = new VaultClientSettings(
-					uri.ToString(),
-					auth
-				);
-
-				return new VaultClient(settings).V1;
-			});
+			_vault = new Lazy<Task<IVaultClientV1>>(CreateVaultClient);
 		}
 
 		public string DatabaseName { get; set; }
@@ -73,6 +62,19 @@ namespace ServiceDiscoveryAccess
 			};
 
 			return builder.Uri;
+		}
+
+		private async Task<IVaultClientV1> CreateVaultClient()
+		{
+			var uri = await GetService("vault");
+			var auth = new AppRoleAuthMethodInfo(VaultRoleID, VaultSecretID);
+
+			var settings = new VaultClientSettings(
+				uri.ToString(),
+				auth
+			);
+
+			return new VaultClient(settings).V1;
 		}
 
 		public void Dispose()
