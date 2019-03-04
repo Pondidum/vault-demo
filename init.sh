@@ -13,17 +13,23 @@ VAULT_HOST="localhost"
 VAULT_PORT="8200"
 VAULT_URL="http://$VAULT_HOST:$VAULT_PORT/v1"
 
-curl --request PUT \
+echo "registering postgres into consul"
+curl --silent \
+  --request PUT \
   --url $CONSUL_URL/agent/service/register \
   --header "$CONTENT_JSON" \
   --data '{ "ID": "postgres", "Name": "postgres", "Address": "'$POSTGRES_HOST'", "Port": '$POSTGRES_PORT'}'
 
-curl --request PUT \
+echo "registering rabbitmq into consul"
+curl --silent \
+  --request PUT \
   --url $CONSUL_URL/agent/service/register \
   --header "$CONTENT_JSON" \
   --data '{ "ID": "rabbit", "Name": "rabbit", "Address": "'$RABBIT_HOST'", "Port": '$RABBIT_PORT'}'
 
-curl --request PUT \
+echo "registering vault into consul"
+curl --silent \
+  --request PUT \
   --url $CONSUL_URL/agent/service/register \
   --header "$CONTENT_JSON" \
   --data '{ "ID": "vault", "Name": "vault", "Address": "'$VAULT_HOST'", "Port": '$VAULT_PORT'}'
