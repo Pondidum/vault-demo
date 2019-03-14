@@ -20,7 +20,9 @@ namespace AppRoleAccess
 			{
 				Console.WriteLine("Connected!");
 
-				var users = await connection.QueryAsync<UserInfo>("select rolname as Name, rolvaliduntil as ValidUntil from pg_roles");
+				var users = await connection.QueryAsync<UserInfo>(
+					"select rolname as Name, rolvaliduntil as ValidUntil from pg_roles"
+				);
 
 				foreach (var userInfo in users)
 					Console.WriteLine(userInfo);
