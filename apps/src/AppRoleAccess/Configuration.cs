@@ -23,7 +23,7 @@ namespace AppRoleAccess
 		{
 			var vault = _vault.Value;
 
-			var response = await vault.Secrets.Database.GetCredentialsAsync("writer");
+			var response = await vault.Secrets.Database.GetCredentialsAsync("reader");
 			var credentials = response.Data;
 
 			var builder = new NpgsqlConnectionStringBuilder

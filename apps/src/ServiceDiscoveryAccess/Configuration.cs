@@ -29,7 +29,7 @@ namespace ServiceDiscoveryAccess
 			var vault = await _vault.Value;
 			var address = await GetService("postgres");
 
-			var response = await vault.Secrets.Database.GetCredentialsAsync("writer");
+			var response = await vault.Secrets.Database.GetCredentialsAsync("reader");
 			var credentials = response.Data;
 
 			var builder = new NpgsqlConnectionStringBuilder

@@ -22,7 +22,7 @@ namespace DirectAccess
 				auth
 			)).V1;
 
-			var response = await vault.Secrets.Database.GetCredentialsAsync("writer");
+			var response = await vault.Secrets.Database.GetCredentialsAsync("reader");
 
 			using (var connection = await Connect(response.Data))
 			{
