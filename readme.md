@@ -1,6 +1,6 @@
 # Vault Demo
 
-Repository to go with my talk on [How to Secure Your Microservices](https://andydote.co.uk/presentations/index.html?vault) (**not published yet**).
+Repository to go with my talk on [How to Secure Your Microservices](https://andydote.co.uk/presentations/index.html?vault).
 
 ## Setup:
 
