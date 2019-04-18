@@ -11,9 +11,12 @@ read -n 1 -s -r
 
 # create a policy allowing reads from the database secret engine
 echo "
-echo 'path \"database/creds/*\" {
-  capabilities = [\"read\"]
-}' | vault policy write postgres_connector -
+echo '
+  path \"database/creds/*\" {
+    capabilities = [\"read\"]
+  }
+'
+| vault policy write postgres_connector -
 "
 
 echo 'path "database/creds/*" {
