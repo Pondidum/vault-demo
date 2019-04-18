@@ -2,6 +2,13 @@
 
 Repository to go with my talk on [How to Secure Your Microservices](https://andydote.co.uk/presentations/index.html?vault).
 
+## Required Tools:
+
+* docker-compose
+* vault client
+* postgres client
+* dotnet, if you want to run the sample apps
+
 ## Setup:
 
 1. `eval $(./environment.sh)` - configures a few environment variables
