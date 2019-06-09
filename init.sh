@@ -33,3 +33,6 @@ curl --silent \
   --url $CONSUL_URL/agent/service/register \
   --header "$CONTENT_JSON" \
   --data '{ "ID": "vault", "Name": "vault", "Address": "'$VAULT_HOST'", "Port": '$VAULT_PORT'}'
+
+echo "enabling vault audit file"
+MSYS_NO_PATHCONV=1 vault audit enable file file_path='/var/log/vault/audit.log'

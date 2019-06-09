@@ -17,6 +17,8 @@ services:
       - "VAULT_DEV_ROOT_TOKEN_ID=vault"
     cap_add:
       - IPC_LOCK
+    volumes:
+      - ".vault:/var/log/vault"
   postgres:
     image: "postgres:alpine"
     ports:
