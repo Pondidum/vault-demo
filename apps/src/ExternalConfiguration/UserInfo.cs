@@ -1,6 +1,6 @@
 using System;
 
-namespace ServiceDiscoveryAccess
+namespace ExternalConfiguration
 {
 	public class UserInfo
 	{
