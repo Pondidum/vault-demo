@@ -76,4 +76,5 @@ curl --silent \
 mkdir -p /vagrant/.machine
 
 echo "$root_token" > /vagrant/.machine/vault_token
+echo "$unseal_key" > /vagrant/.machine/vault_unseal_key
 echo "$(ip route get 1 | awk '{print $(NF-2);exit}')" > /vagrant/.machine/ip
