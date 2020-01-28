@@ -22,7 +22,7 @@ namespace DirectAccess
                 Console.WriteLine("Connected!");
 
                 var users = await connection.QueryAsync<UserInfo>(
-                    "select rolname as Name, rolvaliduntil as ValidUntil from pg_roles"
+                    "select rolname as Name, rolvaliduntil as ValidUntil from pg_roles where rolname not like 'pg_%'"
                 );
 
                 foreach (var userInfo in users)

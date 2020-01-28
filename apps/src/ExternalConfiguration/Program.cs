@@ -6,40 +6,40 @@ using Npgsql;
 
 namespace ExternalConfiguration
 {
-	class Program
-	{
-		static async Task Main(string[] args)
-		{
-			var connect = CreateConnector();
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            var connect = CreateConnector();
 
-			using (var connection = await connect())
-			{
-				Console.WriteLine("Connected!");
+            using (var connection = await connect())
+            {
+                Console.WriteLine("Connected!");
 
-				var users = await connection.QueryAsync<UserInfo>(
-					"select rolname as Name, rolvaliduntil as ValidUntil from pg_roles"
-				);
+                var users = await connection.QueryAsync<UserInfo>(
+                    "select rolname as Name, rolvaliduntil as ValidUntil from pg_roles where rolname not like 'pg_%'"
+                );
 
-				foreach (var userInfo in users)
-					Console.WriteLine(userInfo);
-			}
-		}
+                foreach (var userInfo in users)
+                    Console.WriteLine(userInfo);
+            }
+        }
 
-		private static Func<Task<NpgsqlConnection>> CreateConnector()
-		{
-			var builder = new NpgsqlConnectionStringBuilder();
-			new ConfigurationBuilder()
-				.AddEnvironmentVariables("DB_")
-				.Build()
-				.Bind(builder);
+        private static Func<Task<NpgsqlConnection>> CreateConnector()
+        {
+            var builder = new NpgsqlConnectionStringBuilder();
+            new ConfigurationBuilder()
+                .AddEnvironmentVariables("DB_")
+                .Build()
+                .Bind(builder);
 
-			var connection = new NpgsqlConnection(builder.ToString());
+            var connection = new NpgsqlConnection(builder.ToString());
 
-			return async () =>
-			{
-				await connection.OpenAsync();
-				return connection;
-			};
-		}
-	}
+            return async () =>
+            {
+                await connection.OpenAsync();
+                return connection;
+            };
+        }
+    }
 }
