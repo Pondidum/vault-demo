@@ -73,10 +73,13 @@ curl --silent \
     --header 'content-type: application/json' \
     --data '{ "ID": "postgres", "Name": "postgres", "Port": 5432 }'
 
+machine_ip=$(ip route get 1 | awk '{print $(NF-2);exit}')
 
 # dump machine info to the host directory
 mkdir -p /vagrant/.machine
 
-echo "$root_token" > /vagrant/.machine/vault_token
-echo "$unseal_key" > /vagrant/.machine/vault_unseal_key
-echo "$(ip route get 1 | awk '{print $(NF-2);exit}')" > /vagrant/.machine/ip
+echo "export MACHINE_IP=$machine_ip" > /vagrant/.machine/env
+echo "export VAULT_ADDR=http://$machine_ip:8200" >> /vagrant/.machine/env
+echo "export VAULT_TOKEN=$root_token" >> /vagrant/.machine/env
+echo "export VAULT_UNSEAL=$unseal_key" >> /vagrant/.machine/env
+echo "export NOMAD_ADDR=http://$machine_ip:4646"  >> /vagrant/.machine/env
