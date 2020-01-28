@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,11 @@ namespace ExternalConfiguration
                 foreach (var userInfo in users)
                     Console.WriteLine(userInfo);
             }
+
+            var cts = new CancellationTokenSource();
+
+            AppDomain.CurrentDomain.ProcessExit += (s, e) => cts.Cancel();
+            await Task.Delay(-1, cts.Token);
         }
 
         private static Func<Task<NpgsqlConnection>> CreateConnector()
