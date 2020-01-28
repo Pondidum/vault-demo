@@ -47,7 +47,8 @@ rc-service nomad start || echo "rc-service exit code $? is suppressed";
 mkdir -p "/vagrant/.artifacts"
 
 docker run \
-    -d --rm \
+    -d \
+    --restart always \
     -p 3030:3030 \
     -e 'PORT=3030' \
     -v /vagrant/.artifacts:/web \
@@ -60,7 +61,8 @@ curl --silent \
     --data '{ "ID": "artifacts", "Name": "artifacts", "Port": 3030 }'
 
 docker run \
-    -d --rm \
+    -d \
+    --restart always \
     -p 5432:5432 \
     -e "POSTGRES_PASSWORD=postgres" \
     postgres:alpine
