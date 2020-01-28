@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 output_dir=".artifacts"
 
@@ -7,13 +7,13 @@ rm -rf $output_dir/*.zip
 
 pushd apps
 
-dotnet publish --output "bin/publish"
+find ./src -iname "*.csproj" | while read project_path; do
 
-find ./src -iname *.csproj | while read line; do
+    project_name=$(basename "$project_path" .csproj)
 
-    project_name=$(basename "$line" .csproj)
+    dotnet publish "$project_path" --output "bin/$project_name"
 
-    publish_path="./src/$project_name/bin/publish"
+    publish_path="./bin/$project_name"
     output_zip="../$output_dir/$project_name.zip"
 
     7z a "$output_zip" "$publish_path/*" > /dev/null
