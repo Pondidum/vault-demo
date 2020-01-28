@@ -18,6 +18,11 @@ job "external" {
         source = "http://artifacts.service.consul:3030/ExternalConfiguration.zip"
       }
 
+      resources {
+        cpu = 25
+        memory = 50
+      }
+
       vault {
         policies = ["postgres_connector"]
       }
