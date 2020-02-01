@@ -4,16 +4,15 @@ Repository to go with my talk on [How to Secure Your Microservices](https://andy
 
 ## Required Tools:
 
-* docker-compose
-* vault client
-* postgres client
+* Vagrant
+* Vault client
 * dotnet, if you want to run the sample apps
+* Nomad client, if you want to try the ExternalConfigured app
 
 ## Setup:
 
-1. `eval $(./environment.sh)` - configures a few environment variables
-1. `docker-compose up -d`
-1. `./init.sh` - writes services into Consul, create pg vault user
+1. `vagrant up`
+1. `source .machine/env` - sets environment variables for Nomad, Vault etc.
 1. `./postgres.sh` - sets up the database secrets engine
 1. `./approles.sh` - creates the `demo_service` approle
 
@@ -27,12 +26,7 @@ All apps just connect to postgres, and list all users/roles and their expiry tim
     * uses a RoleID and SecretID.
     * Set `VaultRoleID` environment variable
     * Set `VaultSecretID` in the `appsettings.json`
-1. `ServiceDiscoveryAccess`
-    * uses Consul and RoleID and SecretID
-    * Set `VaultRoleID` environment variable
-    * Set `VaultSecretID` in the `appsettings.json`
+1. `ExternalConfiguration`
+    * Deploy with nomad (`nomad job run apps/external.nomad`)
+    * Uses Nomad's Vault integration to prepopulate environment variables
 
-
-## Useful Commands
-
-* `psql -c "select rolname, rolvaliduntil from pg_roles;"`
